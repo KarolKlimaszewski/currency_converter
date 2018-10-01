@@ -1,0 +1,34 @@
+.converter{
+  background: rgba($main-color, 0.9);
+  display: block;
+  @media #{$large} {
+    background: rgba($main-color, 0.9);
+    display: flex;
+    justify-content: space-around;
+    margin: 1em 0;
+  }
+}
+.converter__container{
+  margin: 1em 0;
+  min-width: 250px;
+}
+
+.converter__text{
+  font-size: 1.5em;
+  color: $second-color;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+.converter__input{
+  padding: 1em;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 20px;
+  background: $additional-color;
+  outline-color: $second-color;
+}
+
+.converter__select{
+  width: 100%;
+}

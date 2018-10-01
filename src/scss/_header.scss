@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px 0;
-  background: rgba($additional-color, 0.6);
+  background: rgba($additional-color, 0.9);
   @media #{$large} {
     background: white;
     display: flex;
@@ -13,7 +13,7 @@
     justify-content: space-around;
     align-items: center;
     padding: 10px 0;
-    background: rgba($additional-color, 0.6);
+    background: rgba($additional-color, 0.9);
   }
 }
 .header__logo{

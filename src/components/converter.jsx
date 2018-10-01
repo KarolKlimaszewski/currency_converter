@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Header} from "./header.jsx";
 
+import Select from "react-select";
+
 export class Converter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: "",
-            userCurrency: "choose",
-            targetCurrency: "choose",
+            selectedoption: null,
+            userCurrency: "",
+            targetCurrency: "",
             amount: 0,
             displayResult: "none"
         }
@@ -20,15 +23,16 @@ export class Converter extends React.Component {
             .then(data => this.setState({data}));
     }
 
-    handleUserCurrencyChange = (event) => {
+    handleUserCurrencyChange = (selectedOption) => {
+        console.log(selectedOption)
         this.setState({
-            userCurrency: event.target.value
+            userCurrency: selectedOption.value
         })
     }
 
-    handleTargetCurrencyChange = (event) => {
+    handleTargetCurrencyChange = (selectedOption) => {
         this.setState({
-            targetCurrency: event.target.value
+            targetCurrency: selectedOption.value
         })
     }
 
@@ -40,16 +44,16 @@ export class Converter extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if(this.state.userCurrency !== "choose" && this.state.targetCurrency !== "choose" && this.state.amount !== 0) {
-        this.setState({
-            communicate: "",
-            displayResult: "block"
-        })
-            fetch('https://api.exchangeratesapi.io/latest?base='+this.state.userCurrency)
+        if (this.state.userCurrency && this.state.targetCurrency && this.state.amount !== 0) {
+            this.setState({
+                communicate: "",
+                displayResult: "block"
+            })
+            fetch('https://api.exchangeratesapi.io/latest?base=' + this.state.userCurrency)
                 .then(response => response.json())
                 .then(data => this.setState({data}));
         }
-        else{
+        else {
             this.setState({
                 communicate: "please fill all fields."
             })
@@ -59,34 +63,34 @@ export class Converter extends React.Component {
     render() {
         if (this.state.data) {
             const currenciesArr = [];
-            for(let name in this.state.data.rates){
+            for (let name in this.state.data.rates) {
                 currenciesArr.push(name);
             }
             let currencies = currenciesArr.map((el, i) => {
-                return <option key={i} className={"currency__choose"} value={el}>{el}</option>
+                return {'value': el, 'label': el}
             })
-
-
             return (
                 <div className={"container"}>
                     <Header/>
-                    <p>
-                        I want to convert
-                    </p>
-                    <input type="text" placeholder={"Write amount here..."} value={this.state.amount} onChange={this.handleAmountChange}/>
-                    <select className={"addOperation__select"} name="currency" onChange={this.handleUserCurrencyChange}>
-                        <option className={"currency__choose"} value="choose">Choose</option>
-                        {currencies}
-                    </select>
-                    <p>
-                        to:
-                    </p>
-                    <select className={"addOperation__select"} name="currency" onChange={this.handleTargetCurrencyChange}>
-                        <option className={"currency__choose"} value="choose">Choose</option>
-                        <option className={"currency__choose"} value="all">All</option>
-                        {currencies}
-                    </select>
-                    <button className="submit" onClick={this.handleSubmit}>{">"}</button>
+                    <section className="converter">
+                        <div className="converter__container">
+                            <p className={"converter__text"}>
+                                I want to convert:
+                            </p>
+                            <input className={"converter__input"} type="text" placeholder={"Write amount here..."}
+                                   value={this.state.amount} onChange={this.handleAmountChange}/>
+                            <Select onChange={this.handleUserCurrencyChange}
+                                    className={"converter__select"} options={currencies}/>
+                        </div>
+                        <div className="converter__container">
+                            <p className={"converter__text"}>
+                                to:
+                            </p>
+                            <Select onChange={this.handleTargetCurrencyChange}
+                                    className={"converter__select"} options={currencies}/>
+                        </div>
+                        <button className="submit" onClick={this.handleSubmit}>{">"}</button>
+                    </section>
 
                     <div className="results" style={{display: this.state.displayResult}}>
                         Conversion rate: 1 {this.state.userCurrency} =
