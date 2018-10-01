@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Header} from "./header.jsx";
 
 export class Converter extends React.Component {
     constructor(props) {
@@ -67,7 +68,8 @@ export class Converter extends React.Component {
 
 
             return (
-                <div>
+                <div className={"container"}>
+                    <Header/>
                     <p>
                         I want to convert
                     </p>
@@ -89,7 +91,8 @@ export class Converter extends React.Component {
                     <div className="results" style={{display: this.state.displayResult}}>
                         Conversion rate: 1 {this.state.userCurrency} =
                         {this.state.data.rates[this.state.targetCurrency]} {this.state.targetCurrency} <br/>
-                        Amount: {this.state.data.rates[this.state.targetCurrency] * this.state.amount}
+                        Amount: {this.state.data.rates[this.state.targetCurrency] * this.state.amount} <br/>
+                        Last update: {this.state.data.date}
                     </div>
                 </div>
             )

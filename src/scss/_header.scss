@@ -1,0 +1,35 @@
+.header{
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  background: rgba($additional-color, 0.6);
+  @media #{$large} {
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    background: rgba($additional-color, 0.6);
+  }
+}
+.header__logo{
+  width: 64px;
+  height: 64px;
+  background: mix($additional-color, $second-color);
+  border-radius: 50%;
+  padding: 10px;
+  margin: 1em 0 0 0;
+  @media #{$large} {
+    margin: 0;
+  }
+}
+
+.header__title{
+  color: $main-color;
+  font-weight: 700;
+  font-size: 3em;
+}
