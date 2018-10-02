@@ -13,7 +13,7 @@ export class Converter extends React.Component {
             userCurrency: "",
             targetCurrency: "",
             amount: "",
-            displayResult: "block"
+            displayResult: "none"
         }
     }
 
@@ -79,35 +79,49 @@ export class Converter extends React.Component {
                 <div className={"container"}>
                     <Header/>
                     <section className="converter">
-                        <div className="converter__container">
+                        <div className="converter__container col-12 col-md-6 col-lg-3">
                             <p className={"converter__text"}>
                                 I want to convert:
                             </p>
                             <input className={"converter__input"} type="text" placeholder={"Write amount here..."}
                                    value={this.state.amount} onChange={this.handleAmountChange}/>
+                        </div>
+                        <div className="converter__container col-12 col-md-6 col-lg-3">
+                            <p className={"converter__text"}>
+                                from:
+                            </p>
                             <Select onChange={this.handleUserCurrencyChange} placeholder={"Your currency..."}
                                     className={"converter__select"} options={currencies}/>
                         </div>
-                        <div className="converter__container">
+                        <div className="converter__container col-12 col-md-6 col-lg-3">
                             <p className={"converter__text"}>
                                 to:
                             </p>
                             <Select onChange={this.handleTargetCurrencyChange} placeholder={"Your currency..."}
                                     className={"converter__select"} options={currencies}/>
                         </div>
-                        <button className="converter__submit" onClick={this.handleSubmit}>{">"}</button>
+                        <div className="converter__container col-12 col-md-6 col-lg-3">
+                            <button className="converter__submit" onClick={this.handleSubmit}></button>
+                        </div>
                     </section>
 
                     <div className="results" style={{display: this.state.displayResult}}>
-                        <p className="results__amountFrom">
+                        <p className="results__amountFrom results__amount">
                             {this.state.amount} {this.state.userCurrency} =
                         </p>
-                        <p className="results__conversion">
-                            1 {this.state.userCurrency} =
-                            {this.state.data.rates[this.state.targetCurrency]} {this.state.targetCurrency}
+                        <p className="results__amountTo results__amount">
+                            {Math.round(this.state.data.rates[this.state.targetCurrency] * this.state.amount * 1000) / 1000}&nbsp;
+                            {this.state.targetCurrency}
                         </p>
-                        <p className="results__amount">
-                            Amount: {this.state.data.rates[this.state.targetCurrency] * this.state.amount}
+                        <p className="results__conversionFrom results__conversion">
+                            1 {this.state.userCurrency} =&nbsp;
+                            {Math.round(this.state.data.rates[this.state.targetCurrency] * 100000) / 100000} &nbsp;
+                            {this.state.targetCurrency}
+                        </p>
+                        <p className="results__conversionTo results__conversion">
+                            1 {this.state.targetCurrency} =&nbsp;
+                            {Math.round(1 / this.state.data.rates[this.state.targetCurrency] * 100000) / 100000} &nbsp;
+                            {this.state.userCurrency}
                         </p>
                         <p className="results__date">
                             Last update: {this.state.data.date}

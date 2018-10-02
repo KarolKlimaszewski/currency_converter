@@ -11,6 +11,9 @@ $large: "screen and (min-width: 992px)";
 //FONT:
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
 
+//BOOTSTRAP:
+@import "bootstrap/bootstrap";
+
 //PARTIALS:
 @import "./header";
 @import "./converter";

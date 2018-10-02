@@ -1,6 +1,5 @@
 .converter{
   background: rgba($main-color, 0.9);
-  display: block;
   @media #{$large} {
     background: rgba($main-color, 0.9);
     display: flex;
@@ -9,33 +8,45 @@
   }
 }
 .converter__container{
-  margin: 1em 0;
-  min-width: 250px;
+  width: 100%;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  @media #{$large} {
+    margin: 1em 0;
+  }
 }
 
 .converter__text{
+  justify-self: flex-start;
+  align-self: flex-start;
   font-size: 1.5em;
   color: $second-color;
   font-weight: 700;
   margin-bottom: 0.5em;
 }
 
-.converter__input{
-  padding: 1em;
-  font-size: 1.5em;
+.converter__input {
+  padding: 0.5em;
   border: none;
-  border-radius: 20px;
+  border-radius: 5px;
   background: $additional-color;
   outline-color: $second-color;
 }
 
 .converter__select{
   width: 100%;
+  margin: 0 auto;
 }
 
 .converter__submit{
   border: none;
-  background: $second-color;
-  padding: 2em;
+  background-image: url("../../images/arrow_icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
   border-radius: 10px;
+  width: 100%;
+  height: 100%;
 }
