@@ -12,8 +12,8 @@ export class Converter extends React.Component {
             selectedoption: null,
             userCurrency: "",
             targetCurrency: "",
-            amount: 0,
-            displayResult: "none"
+            amount: "",
+            displayResult: "block"
         }
     }
 
@@ -23,31 +23,35 @@ export class Converter extends React.Component {
             .then(data => this.setState({data}));
     }
 
-    handleUserCurrencyChange = (selectedOption) => {
-        console.log(selectedOption)
+    handleUserCurrencyChange = (e) => {
         this.setState({
-            userCurrency: selectedOption.value
+            userCurrency: e.value,
         })
     }
 
-    handleTargetCurrencyChange = (selectedOption) => {
+    handleTargetCurrencyChange = (e) => {
         this.setState({
-            targetCurrency: selectedOption.value
+            targetCurrency: e.value,
         })
     }
 
     handleAmountChange = (event) => {
-        this.setState({
-            amount: event.target.value
-        })
+        const numbers = /^-?(\d+\.?\d*)$|(\d*\.?\d+)$/;
+        if (event.target.value.match(numbers)) {
+            this.setState({
+                amount: event.target.value
+            })
+        }
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if (this.state.userCurrency && this.state.targetCurrency && this.state.amount !== 0) {
+        if (this.state.userCurrency && this.state.targetCurrency && this.state.amount) {
             this.setState({
                 communicate: "",
-                displayResult: "block"
+                displayResult: "block",
+                amount: Math.round(this.state.amount, 3),
+
             })
             fetch('https://api.exchangeratesapi.io/latest?base=' + this.state.userCurrency)
                 .then(response => response.json())
@@ -55,7 +59,8 @@ export class Converter extends React.Component {
         }
         else {
             this.setState({
-                communicate: "please fill all fields."
+                communicate: "please fill all fields.",
+                displayResult: "none"
             })
         }
     }
@@ -66,6 +71,7 @@ export class Converter extends React.Component {
             for (let name in this.state.data.rates) {
                 currenciesArr.push(name);
             }
+            //return object is because of fact, that app is using react-select query, which needs objects looking like this to work.
             let currencies = currenciesArr.map((el, i) => {
                 return {'value': el, 'label': el}
             })
@@ -79,24 +85,33 @@ export class Converter extends React.Component {
                             </p>
                             <input className={"converter__input"} type="text" placeholder={"Write amount here..."}
                                    value={this.state.amount} onChange={this.handleAmountChange}/>
-                            <Select onChange={this.handleUserCurrencyChange}
+                            <Select onChange={this.handleUserCurrencyChange} placeholder={"Your currency..."}
                                     className={"converter__select"} options={currencies}/>
                         </div>
                         <div className="converter__container">
                             <p className={"converter__text"}>
                                 to:
                             </p>
-                            <Select onChange={this.handleTargetCurrencyChange}
+                            <Select onChange={this.handleTargetCurrencyChange} placeholder={"Your currency..."}
                                     className={"converter__select"} options={currencies}/>
                         </div>
-                        <button className="submit" onClick={this.handleSubmit}>{">"}</button>
+                        <button className="converter__submit" onClick={this.handleSubmit}>{">"}</button>
                     </section>
 
                     <div className="results" style={{display: this.state.displayResult}}>
-                        Conversion rate: 1 {this.state.userCurrency} =
-                        {this.state.data.rates[this.state.targetCurrency]} {this.state.targetCurrency} <br/>
-                        Amount: {this.state.data.rates[this.state.targetCurrency] * this.state.amount} <br/>
-                        Last update: {this.state.data.date}
+                        <p className="results__amountFrom">
+                            {this.state.amount} {this.state.userCurrency} =
+                        </p>
+                        <p className="results__conversion">
+                            1 {this.state.userCurrency} =
+                            {this.state.data.rates[this.state.targetCurrency]} {this.state.targetCurrency}
+                        </p>
+                        <p className="results__amount">
+                            Amount: {this.state.data.rates[this.state.targetCurrency] * this.state.amount}
+                        </p>
+                        <p className="results__date">
+                            Last update: {this.state.data.date}
+                        </p>
                     </div>
                 </div>
             )

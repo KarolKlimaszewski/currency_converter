@@ -32,3 +32,10 @@
 .converter__select{
   width: 100%;
 }
+
+.converter__submit{
+  border: none;
+  background: $second-color;
+  padding: 2em;
+  border-radius: 10px;
+}
