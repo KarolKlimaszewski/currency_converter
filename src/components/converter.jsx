@@ -12,7 +12,10 @@ export class Converter extends React.Component {
             userCurrency: "",
             targetCurrency: "",
             amount: "",
-            displayResult: "none"
+            displayResult: "none",
+            displayAmount: "",
+            displayUserCurrency: "",
+            displayTargetCurrency: ""
         }
     }
 
@@ -50,6 +53,9 @@ export class Converter extends React.Component {
                 communicate: "",
                 displayResult: "block",
                 amount: Math.round(this.state.amount, 3),
+                displayUserCurrency: this.state.userCurrency,
+                displayTargetCurrency: this.state.targetCurrency,
+                displayAmount: this.state.amount
 
             })
             fetch('https://api.exchangeratesapi.io/latest?base=' + this.state.userCurrency)
@@ -106,21 +112,21 @@ export class Converter extends React.Component {
 
                     <div className="results" style={{display: this.state.displayResult}}>
                         <p className="results__amountFrom results__amount">
-                            {this.state.amount} {this.state.userCurrency} =
+                            {this.state.displayAmount} {this.state.displayUserCurrency} =
                         </p>
                         <p className="results__amountTo results__amount">
-                            {Math.round(this.state.data.rates[this.state.targetCurrency] * this.state.amount * 1000) / 1000}&nbsp;
-                            {this.state.targetCurrency}
+                            {Math.round(this.state.data.rates[this.state.displayTargetCurrency] * this.state.displayAmount * 1000) / 1000}&nbsp;
+                            {this.state.displayTargetCurrency}
                         </p>
                         <p className="results__conversionFrom results__conversion">
-                            1 {this.state.userCurrency} =&nbsp;
-                            {Math.round(this.state.data.rates[this.state.targetCurrency] * 100000) / 100000} &nbsp;
-                            {this.state.targetCurrency}
+                            1 {this.state.displayUserCurrency} =&nbsp;
+                            {Math.round(this.state.data.rates[this.state.displayTargetCurrency] * 100000) / 100000} &nbsp;
+                            {this.state.displayTargetCurrency}
                         </p>
                         <p className="results__conversionTo results__conversion">
-                            1 {this.state.targetCurrency} =&nbsp;
-                            {Math.round(1 / this.state.data.rates[this.state.targetCurrency] * 100000) / 100000} &nbsp;
-                            {this.state.userCurrency}
+                            1 {this.state.displayTargetCurrency} =&nbsp;
+                            {Math.round(1 / this.state.data.rates[this.state.displayTargetCurrency] * 100000) / 100000} &nbsp;
+                            {this.state.displayUserCurrency}
                         </p>
                         <p className="results__date">
                             Last update: {this.state.data.date}
