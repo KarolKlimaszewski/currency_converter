@@ -1,0 +1,34 @@
+.historical{
+  background: rgba($main-color, 0.9);
+  @media #{$large} {
+    background: rgba($main-color, 0.9);
+    display: flex;
+    justify-content: space-around;
+    margin: 1em 0;
+  }
+}
+
+.historical__container{
+  width: 100%;
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  @media #{$large} {
+    margin: 1em 0;
+  }
+}
+
+.historical__title {
+  color: white;
+  font-weight: 700;
+}
+
+.historical__text{
+  justify-self: flex-start;
+  align-self: flex-start;
+  font-size: 1.5em;
+  color: $second-color;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}

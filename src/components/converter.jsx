@@ -121,7 +121,7 @@ export class Converter extends React.Component {
                     hTargetCurrency: this.state.hTargetCurrency
                 },
             })
-            fetch('https://api.exchangeratesapi.io/' + this.state.date)
+            fetch('https://api.exchangeratesapi.io/' + this.state.date + '/?base=' + this.state.hUserCurrency)
                 .then(response => response.json())
                 .then(hData => this.setState({hData}));
         }
@@ -149,6 +149,9 @@ export class Converter extends React.Component {
             return (
                 <div className={"container"}>
                     <Header/>
+                    <h2 className="converter__title">
+                        Current conversion rates
+                    </h2>
                     <section className="converter">
                         <div className="converter__container col-12 col-md-6 col-lg-3">
                             <p className={"converter__text"}>
@@ -198,11 +201,12 @@ export class Converter extends React.Component {
                             Last update: {this.state.data.date}
                         </p>
                     </section>
+                    <h2 className="historical__title">
+                        Historical conversion rates
+                    </h2>
                     <section className="historical">
                         <div className="historical__container col-12 col-md-6 col-lg-3">
-                            <h2 className="historical__title">
-                                Historical conversion rates
-                            </h2>
+
                             <p className={"historical__text"}>
                                 Date:
                             </p>
@@ -210,14 +214,14 @@ export class Converter extends React.Component {
                                    value={this.state.date} onChange={this.handleDateChange}/>
                         </div>
                         <div className="converter__container col-12 col-md-6 col-lg-3">
-                            <p className={"converter__text"}>
+                            <p className={"historical__text"}>
                                 from:
                             </p>
                             <Select onChange={this.historicalUserCurrencyChange} placeholder={"Your currency..."}
                                     className={"converter__select"} options={currencies}/>
                         </div>
                         <div className="converter__container col-12 col-md-6 col-lg-3">
-                            <p className={"converter__text"}>
+                            <p className={"historical__text"}>
                                 to:
                             </p>
                             <Select onChange={this.historicalTargetCurrencyChange} placeholder={"Target currency..."}
@@ -240,9 +244,6 @@ export class Converter extends React.Component {
                             1 {this.state.hDisplay.hTargetCurrency} =&nbsp;
                             {Math.round(1 / this.state.hData.rates[this.state.hDisplay.hTargetCurrency] * 100000) / 100000} &nbsp;
                             {this.state.hDisplay.hUserCurrency}
-                        </p>
-                        <p className="results__date">
-                            Last update: {this.state.hData.date}
                         </p>
                     </section>
                 </div>
