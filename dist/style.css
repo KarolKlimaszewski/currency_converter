@@ -6807,6 +6807,32 @@ a.text-dark:hover, a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6; } }
 
+.loader {
+  border-top: 50px solid #A593E0;
+  border-right: 50px solid #FFFFF3;
+  border-bottom: 50px solid #A593E0;
+  border-left: 50px solid #566270;
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  animation: spin 2s linear infinite; }
+
+.loader__box {
+  height: calc(100vh - 75px);
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center; }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
 .header {
   background: white;
   display: -ms-flexbox;
@@ -6859,6 +6885,10 @@ a.text-dark:hover, a.text-dark:focus {
       -ms-flex-pack: distribute;
           justify-content: space-around;
       margin: 1em 0; } }
+
+.converter__title {
+  color: white;
+  font-weight: 700; }
 
 .converter__container {
   width: 100%;
@@ -6924,6 +6954,43 @@ a.text-dark:hover, a.text-dark:focus {
 .results__date {
   text-align: right;
   margin-top: 2em; }
+
+.historical {
+  background: rgba(165, 147, 224, 0.9); }
+  @media screen and (min-width: 992px) {
+    .historical {
+      background: rgba(165, 147, 224, 0.9);
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+      margin: 1em 0; } }
+
+.historical__container {
+  width: 100%;
+  margin: 1em auto;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: start;
+      justify-content: flex-start; }
+  @media screen and (min-width: 992px) {
+    .historical__container {
+      margin: 1em 0; } }
+
+.historical__title {
+  color: white;
+  font-weight: 700; }
+
+.historical__text {
+  justify-self: flex-start;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  font-size: 1.5em;
+  color: #566270;
+  font-weight: 700;
+  margin-bottom: 0.5em; }
 
 * {
   margin: 0;

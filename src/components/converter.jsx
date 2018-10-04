@@ -1,5 +1,6 @@
 import React from 'react';
 import {Header} from "./header.jsx";
+import {Loader} from "./loader.jsx";
 
 import Select from "react-select";
 
@@ -249,11 +250,7 @@ export class Converter extends React.Component {
                 </div>
             )
         } else {
-            return (
-                <div>
-                    loading...
-                </div>
-            )
+            return <Loader/>
         }
     }
 }

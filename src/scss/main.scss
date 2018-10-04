@@ -15,6 +15,7 @@ $large: "screen and (min-width: 992px)";
 @import "bootstrap/bootstrap";
 
 //PARTIALS:
+@import "./loader";
 @import "./header";
 @import "./converter";
 @import "./results";
